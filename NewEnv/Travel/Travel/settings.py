@@ -77,12 +77,22 @@ WSGI_APPLICATION = 'Travel.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'Travel',
+        'USER':'postgre',
+        'PASSWORD':'Edwardhans18.',
+        'HOST': 'localhost',
+        
     }
 }
-
-
+'''
+DATABASES = {
+     'default': {
+         'ENGINE': 'djongo',
+         'NAME': 'Travel',
+     }
+ }
+'''
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
