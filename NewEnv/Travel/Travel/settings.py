@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Travello'
+    'Travello',
 ]
 
 MIDDLEWARE = [
@@ -79,7 +79,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'Travel',
-        'USER':'postgre',
+        'USER':'postgres',
         'PASSWORD':'Edwardhans18.',
         'HOST': 'localhost',
         
