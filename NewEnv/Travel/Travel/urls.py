@@ -22,5 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
    
     path('admin/', admin.site.urls),
-     path('', include('Travello.urls')),
-]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
+    path('', include('Travello.urls')),]
+
+urlpatterns=urlpatterns+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
+urlpatterns=urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

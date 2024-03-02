@@ -29,14 +29,14 @@
 				<div class="col">
 					<div class="header_content d-flex flex-row align-items-center justify-content-start">
 						<div class="header_content_inner d-flex flex-row align-items-end justify-content-start">
-							<div class="logo"><a href=" {%static 'index.html' %}">Travello</a></div>
+							<div class="logo"><a href="index.html">Travello</a></div>
 							<nav class="main_nav">
 								<ul class="d-flex flex-row align-items-start justify-content-start">
-									<li class="active"><a href="{%static 'index.html' %}">Home</a></li>
-									<li><a href="{%static 'about.html' %}">About us</a></li>
-									<li><a href="{%static '#' %}">Services</a></li>
-									<li><a href="{%static 'news.html' %}">News</a></li>
-									<li><a href="{%static 'contact.html' %}">Contact</a></li>
+									<li class="active"><a href="index.html">Home</a></li>
+									<li><a href="templates/about.html">About us</a></li>
+									<li><a href=" #">Services</a></li>
+									<li><a href="news.html">News</a></li>
+									<li><a href="contact.html">Contact</a></li>
 								</ul>
 							</nav>
 							<div class="header_phone ml-auto">Call us: 00-56 445 678 33</div>
@@ -73,8 +73,8 @@
 		</div>
 		<div class="menu_content">
 			<ul>
-				<li><a href="{%static 'index.html' %}">Home</a></li>
-				<li><a href="{%static 'about.html' %}">About us</a></li>
+				<li><a href="index.html' %}">Home</a></li>
+				<li><a href="{%static 'about' %}">About us</a></li>
 				<li><a href="{%static '#' %}">Services</a></li>
 				<li><a href="{%static 'news.html' %}">News</a></li>
 				<li><a href=" {%static 'contact.html' %}">Contact</a></li>
@@ -103,7 +103,6 @@
 
 				<!-- Slide -->
 				<div class="owl-item">
-					<div class="background_image" style=" {%static 'background-image:url(images/home_slider.jpg)' %}"></div>
 					<div class="home_slider_content_container">
 						<div class="container">
 							<div class="row">
@@ -118,9 +117,9 @@
 				</div>
 
 				<!-- Slide -->
+				{% comment %} style="background-image: url('{% static 'images/background.jpg' %}');"> {% endcomment %}
 				<div class="owl-item">
-					<div class="background_image" style="{%static 'background-image:url(images/home_slider.jpg)' %}"></div>
-					<div class="home_slider_content_container">
+					<div class="background_image" style="background-image:url('{% static 'images/A380a.jpeg' %}');"></div>
 						<div class="container">
 							<div class="row">
 								<div class="col">
@@ -135,7 +134,8 @@
 
 				<!-- Slide -->
 				<div class="owl-item">
-					<div class="background_image" style="{%static 'background-image:url(images/home_slider.jpg)' %}"></div>
+					{% comment %} <div class="background_image" style="{%static 'background-image:url(images/home_slider.jpg)' %}"></div> {% endcomment %}
+					<div class="background_image" style="background-image:url('{% static 'images/A380a.jpeg' %}');"></div>
 					<div class="home_slider_content_container">
 						<div class="container">
 							<div class="row">
@@ -172,6 +172,7 @@
 						<div class="home_search_content">
 							<form action="#" class="home_search_form" id="home_search_form">
 								<div class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
+									
 									<input type="text" class="search_input search_input_1" placeholder="City" required="required">
 									<input type="text" class="search_input search_input_2" placeholder="Departure" required="required">
 									<input type="text" class="search_input search_input_3" placeholder="Arrival" required="required">
@@ -256,7 +257,7 @@
 						{% for dest in dests%}
 						<div class="destination item">
 							<div class="destination_image">
-								<img src="{{baseUrl}}/{{dest.img}}" alt="">
+								<img src="{{dest.img.url}}" alt="">
 								{% if dest.offer == True %}
 								<div class="spec_offer text-center"><a href="{%static '#' %}">Special destination</a></div>
 								{% endif %}
@@ -449,10 +450,11 @@
 							<div class="newsletter_subtitle">Join our database NOW!</div>
 						</div>
 						<div class="newsletter_form_container">
-							<form action="#" class="newsletter_form d-flex flex-md-row flex-column align-items-start justify-content-between" id="newsletter_form">
-								<div class="d-flex flex-md-row flex-column align-items-start justify-content-between">
-									<div><input type="text" class="newsletter_input newsletter_input_name" id="newsletter_input_name" placeholder="Name" required="required"><div class="input_border"></div></div>
-									<div><input type="email" class="newsletter_input newsletter_input_email" id="newsletter_input_email" placeholder="Your e-mail" required="required"><div class="input_border"></div></div>
+							<form action="#" class="newsletter_form d-flex flex-md-row flex-column align-items-start justify-content-between" id="newsletter_form" method ="POST"> 
+									 
+								<div class="d-flex flex-md-row flex-column align-items-start justify-content-between"> {% csrf_token %}
+									<div><input type="text" class="newsletter_input newsletter_input_name" id="newsletter_input_name" placeholder="Name" required="required" name="Full-name"><div class="input_border" ></div></div>
+									<div><input type="email" class="newsletter_input newsletter_input_email" id="newsletter_input_email" placeholder="Your e-mail" required="required" name="Email"><div class="input_border"></div></div>
 								</div>
 								<div><button class="newsletter_button">subscribe</button></div>
 							</form>
