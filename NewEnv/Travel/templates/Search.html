@@ -1,0 +1,29 @@
+{% extends "index.html" %}
+{% block content %}
+<div class="row destinations_row">
+    <div class="col">
+        <div class="destinations_container item_grid">
+
+            <!-- Destination -->
+            {% comment %} Using loops to print the total number of destination in view.py {travello} {% endcomment %}
+            {% for dest in dests%}
+            <div class="destination item">
+                <div class="destination_image">
+                    <img src="{{Available_Trips.img.url}}" alt="">
+                    {% if Available_Trips.offer == True %}
+                    <div class="spec_offer text-center"><a href="#>Special destination</a></div>
+                    {% endif %}
+                </div>
+                <div class="destination_content">
+                    <div class="destination_title"><a href="destinations.html">{{Available_Trips.Name}}</a></div>
+                    <div class="destination_subtitle"><p>{{Available_Trips.desc}}</p></div>
+                    <div class="destination_price">From ${{Available_Trips.Price}}</div>
+                </div>
+            </div>
+
+             {% endfor %}
+
+        </div>
+    </div>
+
+{% endblock content %}

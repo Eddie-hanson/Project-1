@@ -52,19 +52,26 @@ def index(request):
     
     #To fetch data from the db
     dests=Destination.objects.all()
-    Trips=bestTrips.objects.all()
-    subscriber= Subscription.objects.all()
+    trips=bestTrips.objects.all()
+    #Posting data to database
+    #subscriber= Subscription.objects.all()
     if request.method=='POST':
         subscriber_Name=request.POST.get('Full-name', '')
         subscriber_Email = request.POST.get('Email', '')
         
         
-        Subscription.objects.create(Name=subscriber_Name, Email=subscriber_Email)
+        subscriber=Subscription.objects.create(Name=subscriber_Name, Email=subscriber_Email)
         
-    return render(request,"index.html", {'dests':dests ,'Trips':Trips,'Subscriber':subscriber})
+    return render(request,"index.html", {'dests':dests ,'trips':trips})
 
-# def about(request):
-#     return render(request, "about.html")
+def about(request):
+    return render(request, "about.html")
+def Search(request):
+    if request.method=='GET':
+        query = request.GET.get('query')
+        if query:
+            Available_Trips=Available_Trips.object.filter(name_icontains=query)
+            return render(request, "Search.html" ,{"Available_Trips":Available_Trips})
 
 # def contact(request):
 #     return render(request, 'contact.html')
