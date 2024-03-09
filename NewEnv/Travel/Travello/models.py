@@ -9,6 +9,8 @@ class Destination(models.Model):
     desc= models.TextField()
     Price = models.IntegerField()
     offer= models.BooleanField(default= False )
+    def __str__(self):
+        return self.Name
 class bestTrips(models.Model):
     day=models.IntegerField()
     month=models.CharField(max_length= 15)
@@ -26,7 +28,8 @@ class Available_Trips(models.Model)  :
     Price = models.IntegerField()
     offer= models.BooleanField(default= False )
     date= models.DateField
-    
+    def __str__(self):
+        return self.Name
 
 
 

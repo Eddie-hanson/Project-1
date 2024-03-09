@@ -1,9 +1,9 @@
 from django.shortcuts import render
 
-from .models import Destination,bestTrips, Subscription
+from .models import Destination,bestTrips, Subscription,Available_Trips
 
 # Create your views here.
-def index(request):
+def home(request):
     # dest1= Destination()
     # dest1.Name= 'Ghana'
     # dest1.img="Ghana.jpeg"
@@ -62,27 +62,42 @@ def index(request):
         
         subscriber=Subscription.objects.create(Name=subscriber_Name, Email=subscriber_Email)
         
-    return render(request,"index.html", {'dests':dests ,'trips':trips})
+    return render(request,"home.html", {'dests':dests ,'trips':trips})
 
 def about(request):
     return render(request, "about.html")
+
+
+
+
+
 def Search(request):
     if request.method=='GET':
         query = request.GET.get('query')
         if query:
-            Available_Trips=Available_Trips.object.filter(name_icontains=query)
-            return render(request, "Search.html" ,{"Available_Trips":Available_Trips})
+            available_Trips=Available_Trips.objects.filter(Name__icontain='query')
+            return render(request, "Search.html" ,{"available_Trips":available_Trips})
+        else:
+            print ('No destinations available')
+            return render(request,"Search.html",{})
+        
+        
+def contact(request):
+     return render(request, 'contact.html')
+ 
+ 
 
-# def contact(request):
-#     return render(request, 'contact.html')
+def destinations(request):
+     return render(request, 'destinations.html')
 
-# def destinations(request):
-#     return render(request, 'destinations.html')
 
-# def elements(request):
-#     return render(request, 'elements.html')
 
-# def news(request):
-#     return render(request, 'news.html')
+def elements(request):
+     return render(request, 'elements.html')
+ 
+ 
+
+def news(request):
+     return render(request, 'news.html')
 
 
