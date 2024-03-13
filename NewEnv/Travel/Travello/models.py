@@ -30,11 +30,24 @@ class Available_Trips(models.Model)  :
     date= models.DateField
     def __str__(self):
         return self.Name
+    
+class Contact(models.Model):
+    Name=models.CharField(max_length=100)
+    Email=models.EmailField()
+    desc=models.TextField()
+    def __str__(self):
+           return self.Name
 
 
-
-
-
+class AllDestinations(models.Model):
+    Name=models.CharField(max_length=100)
+    desc=models.TextField()
+    price=models.IntegerField()
+    img=models.ImageField(upload_to='pics')
+    offer=models.BooleanField(default= False)
+    def __str__(self) :
+        return self.Name
+    
 # class Flight(models.Model):
 #     origin_city = models.CharField(max_length=100)
 #     destination_city = models.CharField(max_length=100)

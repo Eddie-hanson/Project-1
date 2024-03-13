@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from .forms import SubscriptionForm
 
-from .models import Destination,bestTrips, Subscription,Available_Trips
+from .models import Destination,bestTrips, Subscription,Available_Trips,Contact,AllDestinations
 
 # Create your views here.
 def home(request):
@@ -55,21 +56,29 @@ def home(request):
     trips=bestTrips.objects.all()
     #Posting data to database
     #subscriber= Subscription.objects.all()
+    form = SubscriptionForm()
     if request.method=='POST':
-        subscriber_Name=request.POST.get('Full-name', '')
-        subscriber_Email = request.POST.get('Email', '')
-        
-        
+        # form=SubscriptionForm(request.POST)
+        subscriber_Name=request.POST['Full-name']
+        subscriber_Email = request.POST['Email']
         subscriber=Subscription.objects.create(Name=subscriber_Name, Email=subscriber_Email)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
         
-    return render(request,"home.html", {'dests':dests ,'trips':trips})
+    return render(request,"home.html", {'dests':dests ,'trips':trips, 'form':form})
 
 def about(request):
+    form = SubscriptionForm()
+    if request.method=='POST':
+        # form=SubscriptionForm(request.POST)
+        subscriber_Name=request.POST['Full-name']
+        subscriber_Email = request.POST['Email']
+        subscriber=Subscription.objects.create(Name=subscriber_Name, Email=subscriber_Email)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
     return render(request, "about.html")
-
-
-
-
 
 def Search(request):
     if request.method=='GET':
@@ -80,24 +89,59 @@ def Search(request):
         else:
             print ('No destinations available')
             return render(request,"Search.html",{})
-        
-        
+               
 def contact(request):
-     return render(request, 'contact.html')
+    form = SubscriptionForm()
+    if request.method=='POST':   
+        subscriber_Name=request.POST['Full-name']
+        subscriber_Email = request.POST['Email']
+        subscriber=Subscription.objects.create(Name=subscriber_Name, Email=subscriber_Email)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    return render(request, 'contact.html')    
  
- 
-
 def destinations(request):
-     return render(request, 'destinations.html')
-
-
+    destinations=AllDestinations.objects.all()
+    form = SubscriptionForm()
+    if request.method=='POST':
+        # form=SubscriptionForm(request.POST)
+        subscriber_Name=request.POST['Full-name']
+        subscriber_Email = request.POST['Email']
+        subscriber=Subscription.objects.create(Name=subscriber_Name, Email=subscriber_Email)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+        
+    return render(request, 'destinations.html',{'destinations':destinations})
 
 def elements(request):
-     return render(request, 'elements.html')
+   
+        # form=SubscriptionForm(request.POST)
+        
+    form=SubscriptionForm(request.POST)
+    if request.method=='POST':
+       
+        subscriber_Name=request.POST['Full-name']
+        subscriber_Email = request.POST['Email']
+        subscriber=Subscription.objects.create(Name=subscriber_Name, Email=subscriber_Email)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+            
+    return render(request, 'elements.html')
  
- 
-
 def news(request):
-     return render(request, 'news.html')
+    form = SubscriptionForm()
+    if request.method=='POST':
+       
+        subscriber_Name=request.POST['Full-name']
+        subscriber_Email = request.POST['Email']
+        subscriber=Subscription.objects.create(Name=subscriber_Name, Email=subscriber_Email)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+        
+    return render(request, 'news.html')
 
 

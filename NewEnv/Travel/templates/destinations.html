@@ -1,4 +1,5 @@
 {% load static %}
+{% static "images" as baseUrl %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -148,7 +149,7 @@
 										<li class="product_sorting_btn" data-isotope-option='{ "sortBy": "name" }'><span>Name</span></li>
 									</ul>
 								</li>
-								<li>
+								{% comment %} <li>
 									<span class="sorting_text">Categories</span>
 									<i class="fa fa-chevron-down" aria-hidden="true"></i>
 									<ul>
@@ -157,7 +158,7 @@
 										<li class="num_sorting_btn"><span>Category</span></li>
 									</ul>
 								</li>
-							</ul>
+							</ul> {% endcomment %}
 						</div>
 						<div class="sort_box ml-auto"><i class="fa fa-th" aria-hidden="true"></i></div>
 					</div>
@@ -168,15 +169,18 @@
 					<div class="destinations_container item_grid">
 
 						<!-- Destination -->
+						{% for des in destinations %}
 						<div class="destination item">
 							<div class="destination_image">
-								<img src="{%static 'images/destination_1.jpg'%}" alt="">
+								<img src="{{des.img.url}}" alt="">
+								{%if des.offer == True %}
 								<div class="spec_offer text-center"><a href="#">Special Offer</a></div>
+								{% endif %}
 							</div>
 							<div class="destination_content">
-								<div class="destination_title"><a href="#">Bali</a></div>
-								<div class="destination_subtitle"><p>Nulla pretium tincidunt felis, nec.</p></div>
-								<div class="destination_price">From $679</div>
+								<div class="destination_title"><a href="#">{{des.Name}}</a></div>
+								<div class="destination_subtitle"><p>{{des.desc}}</p></div>
+								<div class="destination_price">From ${{des.price}}</div>
 								<div class="destination_list">
 									<ul>
 										<li>5 Stars Hotel</li>
@@ -187,8 +191,9 @@
 								</div>
 							</div>
 						</div>
+						{% endfor %}
 
-						<!-- Destination -->
+						{% comment %} <!-- Destination -->
 						<div class="destination item">
 							<div class="destination_image">
 								<img src="{%static 'images/destination_2.jpg'%}" alt="">
@@ -346,7 +351,7 @@
 									</ul>
 								</div>
 							</div>
-						</div>
+						</div> {% endcomment %}
 
 					</div>
 				</div>
@@ -372,12 +377,14 @@
 							<div class="newsletter_subtitle">Join our database NOW!</div>
 						</div>
 						<div class="newsletter_form_container">
-							<form action="#" class="newsletter_form d-flex flex-md-row flex-column align-items-start justify-content-between" id="newsletter_form">
-								<div class="d-flex flex-md-row flex-column align-items-start justify-content-between">
-									<div><input type="text" class="newsletter_input newsletter_input_name" id="newsletter_input_name" placeholder="Name" required="required"><div class="input_border"></div></div>
-									<div><input type="email" class="newsletter_input newsletter_input_email" id="newsletter_input_email" placeholder="Your e-mail" required="required"><div class="input_border"></div></div>
+							<form action="{%url 'home'%}" class="newsletter_form d-flex flex-md-row flex-column align-items-start justify-content-between" id="newsletter_form" method ="POST"> 
+									 
+								<div class="d-flex flex-md-row flex-column align-items-start justify-content-between"> 
+									<div><input type="text" class="newsletter_input newsletter_input_name" id="newsletter_input_name" placeholder="Name" required="required" name="Full-name"><div class="input_border" ></div></div>
+									<div><input type="email" class="newsletter_input newsletter_input_email" id="newsletter_input_email" placeholder="Your e-mail" required="required" name="Email"><div class="input_border"></div></div>
 								</div>
 								<div><button class="newsletter_button">subscribe</button></div>
+								{% csrf_token %}
 							</form>
 						</div>
 					</div>
