@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
-from .forms import SubscriptionForm
+from .forms import SubscriptionForm, UserFeedbackForm
 
-from .models import Destination,bestTrips, Subscription,Available_Trips,Contact,AllDestinations
+from .models import Destination,bestTrips, Subscription,Available_Trips,Contact,AllDestinations, UserFeedback
 
 # Create your views here.
 def home(request):
@@ -91,6 +91,17 @@ def Search(request):
             return render(request,"Search.html",{})
                
 def contact(request):
+    form=UserFeedbackForm
+    if request.method=='POST':
+        name=request.POST['Your_Name']
+        email=request.POST['Email']
+        subject=request.POST['Subject']
+        message=request.POST['Message']
+        User=UserFeedback.objects.create(Name=name, Email=email, Subject=subject, Message=message)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+        
     form = SubscriptionForm()
     if request.method=='POST':   
         subscriber_Name=request.POST['Full-name']

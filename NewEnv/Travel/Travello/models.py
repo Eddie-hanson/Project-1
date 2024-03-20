@@ -47,7 +47,12 @@ class AllDestinations(models.Model):
     offer=models.BooleanField(default= False)
     def __str__(self) :
         return self.Name
-    
+  
+class UserFeedback(models.Model):
+    Name=models.CharField(max_length=100) 
+    Email=models.EmailField()
+    Subject=models.CharField(max_length=150)
+    Message=models.TextField()
 # class Flight(models.Model):
 #     origin_city = models.CharField(max_length=100)
 #     destination_city = models.CharField(max_length=100)
