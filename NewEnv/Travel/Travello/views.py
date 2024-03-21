@@ -1,84 +1,36 @@
 from django.shortcuts import render,redirect
 from .forms import SubscriptionForm, UserFeedbackForm
 
-from .models import Destination,bestTrips, Subscription,Available_Trips,Contact,AllDestinations, UserFeedback
+from .models import Destination,News, Subscription,Available_Trips,Contact,AllDestinations, UserFeedback
 
 # Create your views here.
 def home(request):
-    # dest1= Destination()
-    # dest1.Name= 'Ghana'
-    # dest1.img="Ghana.jpeg"
-    # dest1.desc= 'The gateway to Africa'
-    # dest1.Price=200
-    # dest1.offer=False
-    
-    # dest2= Destination()
-    # dest2.Name= "La Cote D'ivoire"
-    # dest2.img="ivory coast.jpeg"
-    # dest2.desc= ' Come to discover a country with enormous potential tourism beaches, culture, ecotourism and religion'
-    # dest2.Price=500
-    # dest2.offer=True
-     
-    # dest3= Destination()
-    # dest3.Name= "Togo"
-    # dest3.img="Togo.jpg"
-    # dest3.desc= ' There is much to discover in this West African country. Did you know that this West African country is known for its palm-lined beaches and hilltop villages.'
-    # dest3.Price=150
-    # dest3.offer=False
-     
-    # dest4= Destination()
-    # dest4.Name= "Namibia"
-    # dest4.img="namibia.jpeg"
-    # dest4.desc= "This country is among the prime destinations in Africa and is known for ecotourism which features Namibia's extensive wildlife. "
-    # dest4.Price=350
-    # dest4.offer=False
-    
-    # dest5= Destination()
-    # dest5.Name= "Tanzania"
-    # dest5.img="Tanzania.jpeg"
-    # dest5.desc= "This African country is a country with many tourist attractions. Approximately 38 percent of Tanzania's land area is set aside in protected areas for conservation."
-    # dest5.Price=500
-    # dest5.offer=False
-    
-    # dest6= Destination()
-    # dest6.Name= "Angola"
-    # dest6.img="Angola.jpg"
-    # dest6.desc= "This African country's tourism industry is based on the country's natural environment, including its rivers, waterfalls and coastline"
-    # dest6.Price=1200
-    # dest6.offer=False
-    
-    # dests=[dest1,dest2,dest3,dest4,dest5,dest6]
-   
-    
+
     
     #To fetch data from the db
     dests=Destination.objects.all()
-    trips=bestTrips.objects.all()
+    news=News.objects.all()
     #Posting data to database
     #subscriber= Subscription.objects.all()
     form = SubscriptionForm()
-    if request.method=='POST':
-        # form=SubscriptionForm(request.POST)
-        subscriber_Name=request.POST['Full-name']
-        subscriber_Email = request.POST['Email']
-        subscriber=Subscription.objects.create(Name=subscriber_Name, Email=subscriber_Email)
+   
+    if request.method=='POST':  
+        form=SubscriptionForm(request.POST) 
         if form.is_valid():
             form.save()
             return redirect('/')
-        
-    return render(request,"home.html", {'dests':dests ,'trips':trips, 'form':form})
+    context= {'dests':dests ,'news':news, 'form':form}    
+    return render(request,"home.html",context)
 
 def about(request):
     form = SubscriptionForm()
-    if request.method=='POST':
-        # form=SubscriptionForm(request.POST)
-        subscriber_Name=request.POST['Full-name']
-        subscriber_Email = request.POST['Email']
-        subscriber=Subscription.objects.create(Name=subscriber_Name, Email=subscriber_Email)
+    if request.method=='POST':  
+        form=SubscriptionForm(request.POST) 
         if form.is_valid():
             form.save()
             return redirect('/')
-    return render(request, "about.html")
+    context={'form':form}    
+    return render(request, "about.html",context)
 
 def Search(request):
     if request.method=='GET':
@@ -91,40 +43,34 @@ def Search(request):
             return render(request,"Search.html",{})
                
 def contact(request):
-    form=UserFeedbackForm
-    if request.method=='POST':
-        name=request.POST['Your_Name']
-        email=request.POST['Email']
-        subject=request.POST['Subject']
-        message=request.POST['Message']
-        User=UserFeedback.objects.create(Name=name, Email=email, Subject=subject, Message=message)
+        
+    form = SubscriptionForm()
+    if request.method=='POST':  
+        form=SubscriptionForm(request.POST) 
         if form.is_valid():
             form.save()
             return redirect('/')
         
-    form = SubscriptionForm()
-    if request.method=='POST':   
-        subscriber_Name=request.POST['Full-name']
-        subscriber_Email = request.POST['Email']
-        subscriber=Subscription.objects.create(Name=subscriber_Name, Email=subscriber_Email)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
-    return render(request, 'contact.html')    
+    form_2=UserFeedbackForm()
+    if request.method=='POST':
+        form_2=UserFeedbackForm(request.POST)
+        if form_2.is_valid():
+            form_2.save()
+            return redirect('/')   
+    context={'form':form,'form_2':form_2}     
+    return render(request, 'contact.html', context)    
  
 def destinations(request):
     destinations=AllDestinations.objects.all()
     form = SubscriptionForm()
     if request.method=='POST':
-        # form=SubscriptionForm(request.POST)
-        subscriber_Name=request.POST['Full-name']
-        subscriber_Email = request.POST['Email']
-        subscriber=Subscription.objects.create(Name=subscriber_Name, Email=subscriber_Email)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
+       form=SubscriptionForm(request.POST)
+       if form.is_valid():
+        form.save()
+        return redirect('/')
+    context= {'destinations':destinations, 'form':form} 
         
-    return render(request, 'destinations.html',{'destinations':destinations})
+    return render(request, 'destinations.html',context)
 
 def elements(request):
    
@@ -132,27 +78,21 @@ def elements(request):
         
     form=SubscriptionForm(request.POST)
     if request.method=='POST':
-       
-        subscriber_Name=request.POST['Full-name']
-        subscriber_Email = request.POST['Email']
-        subscriber=Subscription.objects.create(Name=subscriber_Name, Email=subscriber_Email)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
-            
-    return render(request, 'elements.html')
+       form=SubscriptionForm(request.POST)
+       if form.is_valid():
+        form.save()
+        return redirect('/')
+    context= {'form':form}      
+    return render(request, 'elements.html',context)
  
 def news(request):
     form = SubscriptionForm()
     if request.method=='POST':
-       
-        subscriber_Name=request.POST['Full-name']
-        subscriber_Email = request.POST['Email']
-        subscriber=Subscription.objects.create(Name=subscriber_Name, Email=subscriber_Email)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
-        
-    return render(request, 'news.html')
+       form=SubscriptionForm(request.POST)
+    if form.is_valid():
+        form.save()
+        return redirect('/')
+    context={'form':form}
+    return render(request, 'news.html', context)
 
 

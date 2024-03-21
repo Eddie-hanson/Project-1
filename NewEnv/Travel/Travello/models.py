@@ -11,11 +11,13 @@ class Destination(models.Model):
     offer= models.BooleanField(default= False )
     def __str__(self):
         return self.Name
-class bestTrips(models.Model):
+    
+class News(models.Model):
     day=models.IntegerField()
     month=models.CharField(max_length= 15)
     desc=models.TextField()
     img=models.ImageField(upload_to='pics')
+    
         
 class Subscription(models.Model):
     Name=models.CharField(max_length=100)

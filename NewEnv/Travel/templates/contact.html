@@ -161,17 +161,35 @@
 				<div class="col-lg-6">
 					<div class="contact_form_container">
 						<form action="{%url 'home'%}" id="contact_form" class="contact_form" method='POST'>
-							<div style="margin-bottom: 18px"><input type="text" class="contact_input contact_input_name inpt" placeholder="Your Name" required="required" name="Your_Name"><div class="input_border "></div></div>
+							<div style="margin-bottom: 18px">
+								{{form_2.Name.label}}
+										{{form_2.Name}}
+								{% comment %} <input type="text" class="contact_input contact_input_name inpt" placeholder="Your Name" required="required" name="Your_Name"> {% endcomment %}
+								<div class="input_border "></div></div>
 							<div class="row">
 								<div class="col-lg-6" style="margin-bottom: 18px">
-									<div><input type="text" class="contact_input contact_input_email inpt" placeholder="Your E-mail" required="required" name="Email"><div class="input_border" ></div></div>
+									<div>
+										{{form_2.Email.label}}
+										{{form_2.Email}}
+										{% comment %} <input type="text" class="contact_input contact_input_email inpt" placeholder="Your E-mail" required="required" name="Email"> {% endcomment %}
+										<div class="input_border" ></div></div>
 								</div>
 								<div class="col-lg-6" style="margin-bottom: 18px">
-									<div><input type="text" class="contact_input contact_input_subject inpt" placeholder="Subject" required="required" name="Subject"><div class="input_border"></div></div>
+									<div>
+										{{form_2.Subject.label}}
+										{{form_2.Subject}}
+										{% comment %} <input type="text" class="contact_input contact_input_subject inpt" placeholder="Subject" required="required" name="Subject"> {% endcomment %}
+										<div class="input_border"></div></div>
 								</div>
 							</div>
-							<div><textarea class="contact_textarea contact_input inpt" placeholder="Message" required="required"></textarea><div class="input_border" style="bottom:3px" name="Message"></div></div>
-							<button class="contact_button">send</button>
+							<div>
+								{{form_2.Message.label}}
+										{{form_2.Message}}
+								{% comment %} <textarea class="contact_textarea contact_input inpt" placeholder="Message" required="required"> {% endcomment %}
+
+								<div class="input_border" style="bottom:3px" ></div>
+							</div>
+							<input type="submit" class="contact_button"></input>
 							{% csrf_token %}
 						</form>
 					</div>
@@ -209,8 +227,17 @@
 							<form action="{%url 'home'%}" class="newsletter_form d-flex flex-md-row flex-column align-items-start justify-content-between" id="newsletter_form" method ="POST"> 
 									 
 								<div class="d-flex flex-md-row flex-column align-items-start justify-content-between"> 
-									<div><input type="text" class="newsletter_input newsletter_input_name" id="newsletter_input_name" placeholder="Name" required="required" name="Full-name"><div class="input_border" ></div></div>
-									<div><input type="email" class="newsletter_input newsletter_input_email" id="newsletter_input_email" placeholder="Your e-mail" required="required" name="Email"><div class="input_border"></div></div>
+									<div>
+										{{form.Name}}
+										{% comment %} <input type="text" class="newsletter_input newsletter_input_name" id="newsletter_input_name" placeholder="Name" required="required" name="Full-name"> {% endcomment %}
+										<div class="input_border" >
+
+										</div></div>
+									<div>
+									
+										{{form.Email}}
+										{% comment %} <input type="email" class="newsletter_input newsletter_input_email" id="newsletter_input_email" placeholder="Your e-mail" required="required" name="Email"> {% endcomment %}
+										<div class="input_border"></div></div>
 								</div>
 								<div><button class="newsletter_button">subscribe</button></div>
 								{% csrf_token %}
@@ -230,8 +257,8 @@
 								<div class="footer_contact_title">give us a call</div>
 								<div class="footer_contact_list">
 									<ul>
-										<li>Office Landline: +44 5567 32 664 567</li>
-										<li>Mobile: +44 5567 89 3322 332</li>
+										<li>Office Landline: +233 57 665 2815</li>
+										<li>Mobile: +233 57 665 2815</li>
 									</ul>
 								</div>
 							</div>
@@ -244,7 +271,7 @@
 								<div class="footer_contact_title">come & drop by</div>
 								<div class="footer_contact_list">
 									<ul style="max-width:190px">
-										<li>4124 Barnes Street, Sanford, FL 32771</li>
+										<li>Sunyani Avene Street, Kanda Estate</li>
 									</ul>
 								</div>
 							</div>
@@ -257,8 +284,8 @@
 								<div class="footer_contact_title">send us a message</div>
 								<div class="footer_contact_list">
 									<ul>
-										<li>youremail@gmail.com</li>
-										<li>Office@yourbusinessname.com</li>
+										<li>hans18edward@gmail.com</li>
+										<li>Edward11116390@gmail.com</li>
 									</ul>
 								</div>
 							</div>
